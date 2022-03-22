@@ -49,3 +49,41 @@ OR LOWER(CITY) LIKE '%o'
 OR LOWER(CITY) LIKE '%u'
 
  
+/*
+Weather Observation Station 8
+8) Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+*/
+SELECT DISTINCT(CITY) FROM STATION 
+WHERE SUBSTRING(CITY,1,1) IN ('a','e','i','o','u') 
+AND SUBSTRING(CITY,LENGTH(CITY),LENGTH(CITY)) IN ('a','e','i','o','u')
+
+
+/*
+Weather Observation Station 9
+9) Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+*/
+SELECT DISTINCT(CITY) FROM STATION 
+WHERE SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')
+
+/*
+Weather Observation Station 10
+10)Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+*/
+SELECT DISTINCT(CITY) FROM STATION
+WHERE SUBSTRING(CITY,LENGTH(CITY),LENGTH(CITY)) NOT IN ('a','e','i','o','u')
+
+/*
+Weather Observation Station 10
+11)Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+*/
+SELECT DISTINCT(CITY) FROM STATION
+WHERE SUBSTRING(CITY,LENGTH(CITY),LENGTH(CITY)) NOT IN ('a','e','i','o','u')
+OR SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')
+
+/*
+Weather Observation Station 11
+12)Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+*/
+SELECT DISTINCT(CITY) FROM STATION
+WHERE SUBSTRING(CITY,LENGTH(CITY),LENGTH(CITY)) NOT IN ('a','e','i','o','u')
+AND SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')
