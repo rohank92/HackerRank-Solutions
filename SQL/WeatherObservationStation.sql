@@ -87,3 +87,35 @@ Weather Observation Station 11
 SELECT DISTINCT(CITY) FROM STATION
 WHERE SUBSTRING(CITY,LENGTH(CITY),LENGTH(CITY)) NOT IN ('a','e','i','o','u')
 AND SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')
+
+/*
+14) Weather Observation Station 14
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345 .
+Truncate your answer to 4 decimal places.
+*/
+SELECT ROUND(MAX(LAT_N),4) FROM STATION
+WHERE LAT_N < 137.2345
+
+/*
+15) Weather Observation Station 15
+--Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345 . Truncate your answer to 4 decimal places.
+*/
+SELECT ROUND(LONG_W,4) FROM STATION 
+WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N < 137.2345)
+
+
+/*
+16) Weather Observation Station 16 
+--Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780 . Truncate your answer to 4 decimal places.
+*/
+SELECT ROUND(MIN(LAT_N), 4) FROM STATION 
+WHERE LAT_N  > 38.7780
+
+/*
+17) Weather Observation Station 17
+Query the Western Longitude (LONG_W) where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780 . Round your answer to 4 decimal places.
+*/
+SELECT ROUND(LONG_W,4) FROM STATION 
+WHERE  LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780)
+
+--End Easy Questions for Weather Observation Station--
