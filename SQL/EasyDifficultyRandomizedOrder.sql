@@ -50,3 +50,50 @@ WHERE COUNTRYCODE = 'JPN'
 --Query the difference between the maximum and minimum populations in CITY.
 SELECT MAX(POPULATION) - MIN(POPULATION) FROM CITY
 
+/*
+Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's '0' key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+
+Write a query calculating the amount of error (i.e.: actual - miscalculated average monthly salaries), and round it up to the next integer.
+*/
+SELECT  CEIL(AVG(SALARY) - AVG(REPLACE(Salary,'0',''))) FROM EMPLOYEES
+
+
+/*
+We define an employee's total earnings to be their monthly salary X months worked, and the maximum total earnings to be the maximum total earnings for any employee in the 'Employee' table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as 2 space-separated integers.
+*/
+-- debug : max (months*salary) = 108064
+--SELECT MAX(months*salary) , COUNT(employee_id) FROM EMPLOYEE
+--SELECT MAX(months*salary) , COUNT(employee_id) FROM EMPLOYEE WHERE months*salary=108064
+
+SELECT MAX(months*salary) , COUNT(employee_id) FROM EMPLOYEE
+WHERE months*salary = (SELECT MAX(months * salary) FROM EMPLOYEE)
+
+
+/*
+Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+*/
+SELECT SUM(CITY.POPULATION) FROM CITY JOIN COUNTRY ON (CITY.countrycode=COUNTRY.code)
+WHERE COUNTRY.CONTINENT='Asia'
+
+/*
+Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+*/
+SELECT CITY.NAME FROM CITY JOIN COUNTRY ON (CITY.COUNTRYCODE = COUNTRY.CODE)
+WHERE CONTINENT = 'Africa'
+
+
+/*
+Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+*/
+SELECT COUNTRY.continent, FLOOR(AVG(CITY.POPULATION)) 
+FROM CITY JOIN COUNTRY ON (CITY.countrycode = COUNTRY.code)
+--ERROR 1140 (42000) at line 1: In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'COUNTRY.continent'; this is incompatible with sql_mode=only_full_group_by
+
+SELECT COUNTRY.continent, FLOOR(AVG(CITY.POPULATION)) 
+FROM CITY JOIN COUNTRY ON (CITY.countrycode = COUNTRY.code)
+GROUP BY country.continent
+-- what Join would solve this without a group by ? 
+
